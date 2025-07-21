@@ -2,6 +2,8 @@
 
 This project analyzes and visualizes the **top most Googled search terms in Canada** between 2020 and 2024 using the **Google Trends public dataset on BigQuery**. The results are visualized in Tableau through an interactive dashboard.
 
+[View Dashboard on Tableau Public](https://public.tableau.com/app/profile/usman.khalid4491/viz/GoogleTrend-Canada2020-2024/Dashboard1)
+
 ---
 
 ## 🔍 Objective
@@ -50,7 +52,6 @@ Full SQL queries are included in the [`sql/queries.sql`](sql/queries.sql) file.
 - Sports events, national holidays, and public disruptions are frequently top-ranked.
 - Certain terms show **seasonal or local interest** patterns.
 - Regional differences in search behavior reflect local culture and current events.
-- 
 
 ---
 
