@@ -1,84 +1,85 @@
-# 🚲 Google Trends - Canada (BigQuery + Tableau Dashboard)
+# 🇨🇦 Google Trends Dashboard: What Canadians Googled (2020–2024)
 
-This project analyzes and visualizes **Google Search Term Trends for the year 2020-2025** using 
-**Google BigQuery for data extraction and transformation**, and **Tableau** 
-for interactive dashboards. The analysis combines trip data, geographic 
-details, and weather data to uncover urban mobility patterns.
+This project analyzes and visualizes the **top most Googled search terms in Canada** between 2020 and 2024 using the **Google Trends public dataset on BigQuery**. The results are visualized in Tableau through an interactive dashboard.
 
-🔗 **[View Tableau Dashboard](https://public.tableau.com/app/profile/usman.khalid4491/viz/GoogleTrend-Canada2020-2024/Dashboard1)**
+![Dashboard Preview](assets/dashboard_preview.png)
 
 ---
 
-## 🧰 Tools & Technologies Used
+## 🔍 Objective
 
-- **Google BigQuery** – SQL-based data extraction, aggregation and transformation
-  - Query available in the SQL file named: 'Google Trends Canada.sql'
-- **Public Datasets**:
-  - `bigquery-public-data.google_trends.international_top_terms`
-- **Tableau** – Dashboard creation, interactive filtering, mapping
-- **Mapbox** – Used within Tableau for geo-boundary mapping
+- Extract search interest data from Google's BigQuery public dataset.
+- Identify top 10 most Googled terms by **province**, **month**, and **year**.
 
 ---
 
-## 🧠 Project Overview
+## 🧰 Tools & Technologies
 
-The project simply explores top most searched terms on google in Canada.
-These terms can be aggregated over specific years, months, and provinces of Canada.
-The original dataset by google only provides the weekly rank of a specific term per week across multiple regions.
-In order to rank them from top to bottom, I used the average weekly rank to sort them.
-
----
-
-## 🔍 Process Thinking
-
-### 1. **Data Aggregation via SQL in BigQuery**
-
-A complex SQL query was written to:
-- Join **citibike trips** with **ZIP code geographies** using `ST_WITHIN`
-- Enrich trips with **weather data** from Central Park (`wban = 94728`)
-- Map coordinates to **boroughs and neighborhoods**
-- Round trip durations to 10-minute bins for aggregation
-
-> Resulting dataset from the query was exported from BigQuery and imported into Tableau.   
+- **Google BigQuery** – SQL-based data extraction and aggregation  
+- **Google Trends Public Dataset** – [`bigquery-public-data.google_trends`](https://console.cloud.google.com/marketplace/product/googledatastudio/google-trends)  
+- **Tableau Public** – Interactive map and bar chart visualization  
+- **Data Source Region**: Canada only
 
 ---
 
-### 2. **Data Modeling & Calculations**
-- Created **trip_count**, **trip_minutes**, and **aggregated KPIs**  
-- Weather fields used: `temp`, `wdsp`, `prcp`  
-- All aggregations done in SQL to reduce Tableau load
+## 📦 Dataset & Query Steps
+
+### Step 1: Create Main Table Partitioned by Week
+Extract Canadian search data from the international top terms table.
+
+### Step 2: Aggregate Top 10 Terms by Region, Year, and Month
+Use `AVG(rank)` and `ROW_NUMBER()` to determine most relevant searches per region/month.
+
+### Step 3: Clean Region Names for Tableau
+Standardize province/territory names for Tableau geolocation compatibility.
+
+Full SQL queries are included in the [`sql/queries.sql`](sql/queries.sql) file.
 
 ---
 
-### 3. **Dashboard Design in Tableau**
-- Used filters for `Usertype`, `Neighborhood`, and `Time`  
-- Enabled map-driven interactivity  
-- Used clean, color-coded layouts with consistent labeling
+## 📊 Dashboard Features (in Tableau)
+
+- **Top 25 terms** overall (by avg. rank)
+- **Province-level maps** showing regional trends
+- **Filter controls** for year and month
+- **Dynamic top 10 search terms** per province
+- Exportable **PDF snapshot** for offline reports
 
 ---
 
-## 📊 Key Dashboards
+## ✅ Insights Uncovered
 
-### 📈 Summer Trend Analysis
-- Monthly stacked bars comparing user types
-
-### 🔥 Trip Count Heatmap
-- Heatmap of ZIPs by month, colored by trip volume
-
-### 🧭 Start-End Dive Table
-- Matrix of start/end neighborhoods with average trip time
-
-### 🗺️ Borough Mapping
-- Map of boroughs and their activity volume
+- Sports events, national holidays, and public disruptions are frequently top-ranked.
+- Certain terms show **seasonal or local interest** patterns.
+- Regional differences in search behavior reflect local culture and current events.
 
 ---
 
-## 🧑‍💻 Author
+## 📁 File Structure
 
-Built by [Usman Khalid](https://public.tableau.com/app/profile/usman.khalid4491/vizzes)  
-This project is part of the **Google BI Specialization** – Data Visualization Capstone
+```
+google-trends-canada/
+├── sql/
+│   └── queries.sql
+├── tableau/
+│   └── GoogleTrends_Canada_Dashboard.twbx
+├── assets/
+│   └── dashboard_preview.png
+└── README.md
+```
 
-## 🔖 Tags
+---
 
-`#BigQuery` `#SQL` `#Tableau` `#CitiBike` `#NYC` `#UrbanMobility`  
-`#GeospatialAnalysis` `#PublicDatasets` `#GoogleBISpecialization` `#DataVisualization`
+## 🔗 References
+
+- [Google Trends Public Dataset (BigQuery)](https://console.cloud.google.com/marketplace/product/googledatastudio/google-trends)
+- [Tableau Public](https://public.tableau.com/)
+- [Mapbox for Tableau Maps](https://www.mapbox.com/tableau)
+
+---
+
+## 📌 Author
+
+**Usman Khalid**  
+Data Analyst | Visual Analytics | Data Storytelling  
+📧 ukajk@live.com
